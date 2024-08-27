@@ -1,12 +1,13 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
-import { Task } from '@/types';
+import useInsertTask from '@/hooks/useInsertTask';
 
 const AddTask: React.FC = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const { insertTask, error } = useInsertTask();
   const [newTask, setNewTask] = useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,30 +16,20 @@ const AddTask: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const newTaskObj: Task = {
-      id: tasks.length + 1,
-      status: 'pending',
-      task: newTask,
-    };
-
-    setTasks((prevTasks) => [...prevTasks, newTaskObj]);
+    insertTask(newTask);
     setNewTask('');
-  };
-
-  useEffect(() => {
-    console.log('Tarefas atualizadas:', tasks);
-  }, [tasks]);
+  }
 
   return (
     <form onSubmit={handleSubmit}>
       <Input
         type="text"
-        placeholder="Digite uma task"
+        placeholder="Digite uma tarefa"
         value={newTask}
         onChange={handleChange}
       />
       <Button type="submit" text="Adicionar" />
+      {error && <p style={{ color: 'red' }}>Erro: {error}</p>} 
     </form>
   );
 };

@@ -1,10 +1,22 @@
+'use client';
+
 import React from 'react';
 import Button from '../Button/Button';
+import useDeleteTasks from '@/hooks/useDeleteTasks';
 
-const DeleteTask: React.FC = () => {
+const DeleteTask: React.FC<{ value: number }> = ({ value }) => {
+
+  const { deleteTask } = useDeleteTasks();
+
+  const handleDelete = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    deleteTask(value)
+  };
+
   return (
-    <form>
-      <Button type="submit" text="Deletar" />
+    <form onSubmit={handleDelete}>
+      <Button value={value} type="submit" text="Deletar" />
     </form>
   );
 };
