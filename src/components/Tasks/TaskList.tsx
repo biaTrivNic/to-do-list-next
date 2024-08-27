@@ -8,6 +8,7 @@ import UndoneTask from './UndoneTask';
 import EditTask from './EditTask';
 import { useState, useEffect } from 'react';
 import useReadTasks from '@/hooks/useReadTasks';
+import DeleteTaskCheckbox from './DeleteTasksCheckbox';
 
 const TaskList: React.FC = () => {
   const { fetchTasks, tasks, error } = useReadTasks();
@@ -24,22 +25,25 @@ const TaskList: React.FC = () => {
 
   useEffect(() => {
     fetchTasks();
-  }, [selectedTasks]);
+  }, []);
 
   return (
-    <ul>
-      {tasks.map(task => (
-        <li key={task.id}>
-          <Input type='checkbox' onChange={() => handleCheckbox(task.id)}
-            checked={selectedTasks.includes(task.id)}/>
-          <strong>Task:</strong> {task.name} <br />
-          <strong>Status:</strong> {task.status}
-          {task.status !== 'done' ? <DoneTask /> : <UndoneTask />}
-          {task.status !== 'done' ? <EditTask /> : null}
-          <DeleteTask value={task.id} />
-        </li>
-      ))}
-    </ul>
+    <div>
+      <DeleteTaskCheckbox value={selectedTasks}/>
+      <ul>
+        {tasks.map(task => (
+          <li key={task.id}>
+            <Input type='checkbox' onChange={() => handleCheckbox(task.id)}
+              checked={selectedTasks.includes(task.id)} />
+            <strong>Task:</strong> {task.name} <br />
+            <strong>Status:</strong> {task.status}
+            {task.status !== 'done' ? <DoneTask /> : <UndoneTask />}
+            {task.status !== 'done' ? <EditTask /> : null}
+            <DeleteTask value={task.id} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

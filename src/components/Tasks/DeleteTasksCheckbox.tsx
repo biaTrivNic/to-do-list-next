@@ -4,14 +4,19 @@ import React from 'react';
 import Button from '../Button/Button';
 import useDeleteTasks from '@/hooks/useDeleteTasks';
 
-const DeleteTask: React.FC<{ value: number }> = ({ value }) => {
+const DeleteTaskCheckbox: React.FC<{ value: number[] }> = ({ value }) => {
 
   const { deleteTask, error } = useDeleteTasks();
+
+  
 
   const handleDelete = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    deleteTask(value)
+    value.forEach(id => {
+      deleteTask(id)
+    });
+
   };
 
   return (
@@ -22,4 +27,4 @@ const DeleteTask: React.FC<{ value: number }> = ({ value }) => {
   );
 };
 
-export default DeleteTask;
+export default DeleteTaskCheckbox;
