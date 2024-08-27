@@ -29,7 +29,7 @@ const TaskList: React.FC = () => {
 
   return (
     <div>
-      <DeleteTaskCheckbox value={selectedTasks}/>
+      {selectedTasks.length > 0 ? <DeleteTaskCheckbox value={selectedTasks}/> : null}
       <ul>
         {tasks.map(task => (
           <li key={task.id}>
