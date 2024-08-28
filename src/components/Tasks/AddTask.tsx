@@ -7,7 +7,7 @@ import useInsertTask from '@/hooks/useInsertTask';
 
 const AddTask: React.FC = () => {
 
-  const { insertTask, error } = useInsertTask();
+  const { insertTask, error, errorMinLength } = useInsertTask();
   const [newTask, setNewTask] = useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +27,10 @@ const AddTask: React.FC = () => {
         placeholder="Digite uma tarefa"
         value={newTask}
         onChange={handleChange}
+        maxLength={50}
       />
+      {errorMinLength && <p style={{ color: 'red' }}>Erro: {errorMinLength}</p>} 
+
       <Button type="submit" text="Adicionar" />
       {error && <p style={{ color: 'red' }}>Erro: {error}</p>} 
     </form>

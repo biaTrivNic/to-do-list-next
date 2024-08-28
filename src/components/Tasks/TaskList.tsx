@@ -9,11 +9,13 @@ import EditTask from './EditTask';
 import { useState, useEffect } from 'react';
 import useReadTasks from '@/hooks/useReadTasks';
 import DeleteTaskCheckbox from './DeleteTasksCheckbox';
+import Button from '../Button/Button';
 
 const TaskList: React.FC = () => {
   const { fetchTasks, tasks, error } = useReadTasks();
 
   const [selectedTasks, setSelectedTasks] = useState<number[]>([]);
+  const [showInput, setShowInput] = useState<boolean>(false);
 
   const handleCheckbox = (id: number) => {
     setSelectedTasks(prevTasks =>
@@ -22,6 +24,10 @@ const TaskList: React.FC = () => {
         : [...prevTasks, id]
     );
   };
+
+  const handleClick = () => {
+    setShowInput(true)
+  }
 
   useEffect(() => {
     fetchTasks();
@@ -36,9 +42,10 @@ const TaskList: React.FC = () => {
             <Input type='checkbox' onChange={() => handleCheckbox(task.id)}
               checked={selectedTasks.includes(task.id)} />
             <strong>Task:</strong> {task.name} <br />
+            <EditTask value={task.name} id={task.id}/>
             <strong>Status:</strong> {task.status}
-            {task.status !== 'done' ? <DoneTask /> : <UndoneTask />}
-            {task.status !== 'done' ? <EditTask /> : null}
+            {task.status !== 'done' ? <DoneTask id={task.id} /> : <UndoneTask id={task.id}/>}
+            {task.status !== 'done' ? <Button onClick={handleClick} type="submit" text="Editar" /> : null}
             <DeleteTask value={task.id} />
           </li>
         ))}
