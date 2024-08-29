@@ -6,12 +6,12 @@ const useUpdateTask = () => {
     const [error, setError] = useState<string | null>(null);
     const [errorMinLength, setErrorMinLength] = useState<string | null>(null);
 
-    const updateTask = async (id: number, editedTask: string) => {
+    const updateTask = async (id: number, editedTask: string, campo : string) => {
         setError(null);
         setErrorMinLength(null);
 
-        if(editedTask.length > 5) {
-            const data = { campo: 'name', valor: editedTask, id: id };
+        if(editedTask.length > 5 || campo == 'status') {
+            const data = { campo: campo, valor: editedTask, id: id };
     
             try {
                 const response = await fetch('/api/update', {

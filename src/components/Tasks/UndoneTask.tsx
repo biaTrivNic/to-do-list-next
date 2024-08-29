@@ -2,40 +2,24 @@
 
 import React from 'react';
 import Button from '../Button/Button';
-import { useState } from 'react';
+import useUpdateTask from '@/hooks/useUpdateTask';
 
 const UndoneTask: React.FC<{ id: number }> = ({ id }) => {
 
-  const [error, setError] = useState<string | null>(null);
+  const { updateTask, error } = useUpdateTask();
 
   const undoneTask = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); 
 
-    setError(null);
-
-    const data = { campo: 'status', valor: 'pending', id: id };
-
-        try {
-            const response = await fetch('/api/update', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
-
-            const result = await response.json();
-            console.log('Sucesso:', result);
-        } catch (error) {
-            setError('Não foi possível salvar os dados');
-            console.error('Erro:', error);
-        }    
+    updateTask(id, 'pending', 'status');
+   
   };
 
 
   return (
     <form onSubmit={undoneTask}>
       <Button type="submit" text="Desfazer" />
+      {error && <p>{error}</p>}
     </form>
   );
 };

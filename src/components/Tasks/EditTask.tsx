@@ -19,7 +19,7 @@ const EditTask: React.FC<{ value: string, id: number }> = ({ value, id }) => {
   const editTask = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); 
 
-    updateTask(id, editedTask);
+    updateTask(id, editedTask, 'name');
   };
 
   return (
