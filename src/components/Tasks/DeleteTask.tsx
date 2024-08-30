@@ -4,14 +4,14 @@ import React from 'react';
 import Button from '../Button/Button';
 import useDeleteTasks from '@/hooks/useDeleteTasks';
 
-const DeleteTask: React.FC<{ value: number }> = ({ value }) => {
+const DeleteTask: React.FC<{ value: number, onSuccess: () => void }> = ({ value, onSuccess }) => {
 
   const { deleteTask, error } = useDeleteTasks();
 
   const handleDelete = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    deleteTask(value)
+    deleteTask(value, onSuccess)
   };
 
   return (

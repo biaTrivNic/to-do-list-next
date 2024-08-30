@@ -4,7 +4,7 @@ import React from 'react';
 import Button from '../Button/Button';
 import useDeleteTasks from '@/hooks/useDeleteTasks';
 
-const DeleteTaskCheckbox: React.FC<{ value: number[] }> = ({ value }) => {
+const DeleteTaskCheckbox: React.FC<{ value: number[], onSuccess: () => void }> = ({ value, onSuccess }) => {
 
   const { deleteTask, error } = useDeleteTasks();
 
@@ -14,7 +14,7 @@ const DeleteTaskCheckbox: React.FC<{ value: number[] }> = ({ value }) => {
     event.preventDefault();
 
     value.forEach(id => {
-      deleteTask(id)
+      deleteTask(id, onSuccess)
     });
 
   };

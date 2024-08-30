@@ -5,7 +5,7 @@ import { useState } from 'react';
 const useDeleteTasks = () => {
     const [error, setError] = useState<string | null>(null);
 
-    const deleteTask = async (id: number) => {
+    const deleteTask = async (id: number, onSuccess: () => void) => {
     
         try {
           const response = await fetch('/api/delete', {
@@ -19,6 +19,8 @@ const useDeleteTasks = () => {
           if (!response.ok) {
             throw new Error('Erro ao deletar a tarefa');
           }
+
+          onSuccess()
     
         } catch (err) {
             if (err instanceof Error) {

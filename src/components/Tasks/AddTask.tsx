@@ -5,7 +5,7 @@ import Input from '../Input/Input';
 import Button from '../Button/Button';
 import useInsertTask from '@/hooks/useInsertTask';
 
-const AddTask: React.FC = () => {
+const AddTask: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
 
   const { insertTask, error, errorMinLength } = useInsertTask();
   const [newTask, setNewTask] = useState<string>('');
@@ -16,7 +16,7 @@ const AddTask: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    insertTask(newTask);
+    insertTask(newTask, onSuccess);
     setNewTask('');
   }
 

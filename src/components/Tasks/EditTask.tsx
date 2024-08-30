@@ -6,7 +6,7 @@ import Input from '../Input/Input';
 import { useState } from 'react';
 import useUpdateTask from '@/hooks/useUpdateTask';
 
-const EditTask: React.FC<{ value: string, id: number }> = ({ value, id }) => {
+const EditTask: React.FC<{ value: string, id: number, onSuccess: () => void }> = ({ value, id, onSuccess }) => {
 
   const { updateTask, error, errorMinLength } = useUpdateTask();
 
@@ -19,7 +19,7 @@ const EditTask: React.FC<{ value: string, id: number }> = ({ value, id }) => {
   const editTask = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); 
 
-    updateTask(id, editedTask, 'name');
+    updateTask(id, editedTask, 'name', onSuccess);
   };
 
   return (

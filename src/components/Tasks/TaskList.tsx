@@ -10,15 +10,10 @@ import { useState, useEffect } from 'react';
 import useReadTasks from '@/hooks/useReadTasks';
 import DeleteTaskCheckbox from './DeleteTasksCheckbox';
 import Button from '../Button/Button';
-import useInsertTask from '@/hooks/useInsertTask';
-import useUpdateTask from '@/hooks/useUpdateTask';
-import useDeleteTasks from '@/hooks/useDeleteTasks';
+import AddTask from './AddTask';
 
 const TaskList: React.FC = () => {
   const { fetchTasks, tasks, error } = useReadTasks();
-  const { insertTask } = useInsertTask();
-  const { updateTask } = useUpdateTask();
-  const { deleteTask } = useDeleteTasks();
 
   const [selectedTasks, setSelectedTasks] = useState<number[]>([]);
   const [showInput, setShowInput] = useState<boolean>(false);
@@ -35,24 +30,30 @@ const TaskList: React.FC = () => {
     setShowInput(true)
   }
 
+  const handleDeleteSuccess = () => {
+    setSelectedTasks([]);  
+    fetchTasks();         
+  };
+
   useEffect(() => {
     fetchTasks();
-  }, [insertTask, updateTask, deleteTask]);
+  }, []);
 
   return (
     <div>
-      {selectedTasks.length > 0 ? <DeleteTaskCheckbox value={selectedTasks}/> : null}
+      <AddTask onSuccess={fetchTasks} />
+      {selectedTasks.length > 0 ? <DeleteTaskCheckbox onSuccess={handleDeleteSuccess} value={selectedTasks}/> : null}
       <ul>
         {tasks.map(task => (
           <li key={task.id}>
             <Input type='checkbox' onChange={() => handleCheckbox(task.id)}
               checked={selectedTasks.includes(task.id)} />
             <strong>Task:</strong> {task.name} <br />
-            <EditTask value={task.name} id={task.id}/>
+            <EditTask onSuccess={fetchTasks} value={task.name} id={task.id}/>
             <strong>Status:</strong> {task.status}
-            {task.status !== 'done' ? <DoneTask id={task.id} /> : <UndoneTask id={task.id}/>}
+            {task.status !== 'done' ? <DoneTask onSuccess={fetchTasks} id={task.id} /> : <UndoneTask onSuccess={fetchTasks} id={task.id}/>}
             {task.status !== 'done' ? <Button onClick={handleClick} type="submit" text="Editar" /> : null}
-            <DeleteTask value={task.id} />
+            <DeleteTask onSuccess={fetchTasks} value={task.id} />
           </li>
         ))}
       </ul>

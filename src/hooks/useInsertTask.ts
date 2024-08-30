@@ -6,7 +6,7 @@ const useInsertTask = () => {
     const [error, setError] = useState<string | null>(null);
     const [errorMinLength, setErrorMinLength] = useState<string | null>(null);
 
-    const insertTask = async (newTask: string) => {
+    const insertTask = async (newTask: string, onSuccess: () => void) => {
         setError(null);
         setErrorMinLength(null);
 
@@ -23,6 +23,7 @@ const useInsertTask = () => {
                 .then(response => response.json())
                 .then(result => {
                     console.log('Sucesso:', result);
+                    onSuccess()
                 })
                 .catch(error => {
                     setError('não foi possível salvar dados')
