@@ -16,7 +16,7 @@ const TaskList: React.FC = () => {
   const { fetchTasks, tasks, error } = useReadTasks();
 
   const [selectedTasks, setSelectedTasks] = useState<number[]>([]);
-  const [showInput, setShowInput] = useState<boolean>(false);
+  const [showInput, setShowInput] = useState<number | null>(null);
 
   const handleCheckbox = (id: number) => {
     setSelectedTasks(prevTasks =>
@@ -26,12 +26,17 @@ const TaskList: React.FC = () => {
     );
   };
 
-  const handleClick = () => {
-    setShowInput(true)
-  }
-
   const handleDeleteSuccess = () => {
     setSelectedTasks([]);  
+    fetchTasks();         
+  };
+
+  const handleClick = (id: number) => {
+    setShowInput(id);
+  };
+
+  const handleEditSuccess = (id: number) => {
+    setShowInput(null);  
     fetchTasks();         
   };
 
@@ -48,11 +53,15 @@ const TaskList: React.FC = () => {
           <li key={task.id}>
             <Input type='checkbox' onChange={() => handleCheckbox(task.id)}
               checked={selectedTasks.includes(task.id)} />
-            <strong>Task:</strong> {task.name} <br />
-            <EditTask onSuccess={fetchTasks} value={task.name} id={task.id}/>
-            <strong>Status:</strong> {task.status}
+            <p>{task.name}</p>
+            {task.status !== 'done' ? (
+      showInput === task.id ? (
+        <EditTask onSuccess={() => handleEditSuccess(task.id)} value={task.name} id={task.id} />
+      ) : (
+        <Button onClick={() => handleClick(task.id)} type="submit" text="Editar" />
+      )
+    ) : null}            <p><strong>Status:</strong> {task.status}</p>
             {task.status !== 'done' ? <DoneTask onSuccess={fetchTasks} id={task.id} /> : <UndoneTask onSuccess={fetchTasks} id={task.id}/>}
-            {task.status !== 'done' ? <Button onClick={handleClick} type="submit" text="Editar" /> : null}
             <DeleteTask onSuccess={fetchTasks} value={task.id} />
           </li>
         ))}
