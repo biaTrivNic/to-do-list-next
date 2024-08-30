@@ -27,11 +27,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const [rows]: [RowDataPacket[], any] = await db.execute(query, queryParams);
 
-      if (rows.length > 0) {
-        res.status(200).json(rows);
-      } else {
-        res.status(404).json({ message: 'Nenhum dado encontrado' });
-      }
+      // Retorna sempre um array, mesmo que esteja vazio
+      res.status(200).json(rows);
     } catch (error) {
       console.error('Erro ao buscar dados:', error);
       res.status(500).json({ error: 'Erro ao buscar dados' });

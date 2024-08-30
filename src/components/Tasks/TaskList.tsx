@@ -10,9 +10,15 @@ import { useState, useEffect } from 'react';
 import useReadTasks from '@/hooks/useReadTasks';
 import DeleteTaskCheckbox from './DeleteTasksCheckbox';
 import Button from '../Button/Button';
+import useInsertTask from '@/hooks/useInsertTask';
+import useUpdateTask from '@/hooks/useUpdateTask';
+import useDeleteTasks from '@/hooks/useDeleteTasks';
 
 const TaskList: React.FC = () => {
   const { fetchTasks, tasks, error } = useReadTasks();
+  const { insertTask } = useInsertTask();
+  const { updateTask } = useUpdateTask();
+  const { deleteTask } = useDeleteTasks();
 
   const [selectedTasks, setSelectedTasks] = useState<number[]>([]);
   const [showInput, setShowInput] = useState<boolean>(false);
@@ -31,7 +37,7 @@ const TaskList: React.FC = () => {
 
   useEffect(() => {
     fetchTasks();
-  }, []);
+  }, [insertTask, updateTask, deleteTask]);
 
   return (
     <div>

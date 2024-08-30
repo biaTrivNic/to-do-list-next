@@ -20,7 +20,6 @@ const useDeleteTasks = () => {
             throw new Error('Erro ao deletar a tarefa');
           }
     
-          alert('Tarefa deletada com sucesso!');
         } catch (err) {
             if (err instanceof Error) {
               setError(err.message);
