@@ -1,0 +1,95 @@
+.btn {
+    border: none;
+    background-color: transparent;
+    padding: 5px 15px;
+    font-size: 20px;
+    border-radius: 10px;
+    box-shadow: 7px 7px 9px #b1b3b4,
+        -7px -7px 9px #ffffff;
+    cursor: pointer;
+}
+
+.btn:active {
+    box-shadow: inset 7px 7px 9px #b1b3b4,
+        inset -7px -7px 9px #ffffff;
+    background-color: #eceef0;
+    color: #000;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.add {
+    color: #fff;
+    background-color: rgb(53, 121, 238);
+    border: #eceef0 solid 5px;
+}
+
+.delCheck {
+    box-shadow: none;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin: 0 10px 30px 20px;
+    height: 40px;
+}
+
+.delBtn {
+    position: relative;
+    width: 43px;
+    height: 43px;
+}
+
+.delCheck::after {
+    content: url(../../../public/trash-solid.svg);
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.delBtn::after {
+    content: url(../../../public/trash-solid.svg);
+    width: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    bottom: -4px;
+}
+
+.delCheck:hover::after {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.editBtn {
+    margin-left: 10px;
+    border-radius: 50%;
+}
+
+.doneBtn {
+    color: #fff;
+    background-color: rgb(17, 143, 17);
+    border: #eceef0 solid 5px;
+    padding: 3px 10px;
+    font-size: 18px;
+}
+
+.undoneBtn {
+    color: #fff;
+    background-color: #B81414;
+    border: #eceef0 solid 5px;
+    padding: 3px 10px;
+    font-size: 18px;
+}
+
+.editarBtn {
+    color: #fff;
+    background-color: rgb(224, 143, 57);
+    border: #eceef0 solid 5px;
+    padding: 3px 10px;
+    font-size: 18px;
+}

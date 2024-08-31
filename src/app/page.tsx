@@ -1,15 +1,21 @@
-  import React from 'react';
-  import { TaskList } from '@/components/Tasks';
+import React from 'react';
+import { TaskList } from '@/components/Tasks';
+import './styles/reset.css';
+import './styles/theme.css';
+import styles from './styles/Home.module.css';
+import Header from '@/components/Header/Header';
 
-  const Home: React.FC = () => {
-    return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-          <h1>Ola</h1>
-            <TaskList />
+const Home: React.FC = () => {
+  return (
+    <>
+      <Header />
+      <main>
+        <div className={styles.container}>
+          <TaskList />
         </div>
       </main>
-    );
-  };
+    </>
+  );
+};
 
-  export default Home;
+export default Home;

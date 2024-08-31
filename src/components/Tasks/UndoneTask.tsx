@@ -18,7 +18,7 @@ const UndoneTask: React.FC<{ id: number, onSuccess: () => void }> = ({ id, onSuc
 
   return (
     <form onSubmit={undoneTask}>
-      <Button type="submit" text="Desfazer" />
+      <Button type="submit" text="Desfazer" className='undoneBtn' title='desfazer'/>
       {error && <p>{error}</p>}
     </form>
   );

@@ -11,12 +11,18 @@ const DeleteTask: React.FC<{ value: number, onSuccess: () => void }> = ({ value,
   const handleDelete = async (event: React.FormEvent) => {
     event.preventDefault();
 
+    const isConfirmed = confirm('Tem certeza de que deseja esta tarefa?');
+
+    if (!isConfirmed) {
+      return;
+    }
+
     deleteTask(value, onSuccess)
   };
 
   return (
     <form onSubmit={handleDelete}>
-      <Button type="submit" text="Deletar" />
+      <Button type="submit" className='delBtn' title='deletar' />
       {error && <p style={{ color: 'red' }}>Erro: {error}</p>} 
     </form>
   );

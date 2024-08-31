@@ -16,7 +16,7 @@ const DoneTask: React.FC<{ id: number, onSuccess: () => void }> = ({ id, onSucce
 
   return (
     <form onSubmit={doneTask}>
-      <Button type="submit" text="Concluir" />
+      <Button type="submit" text="Concluir" className='doneBtn' title='concluir'/>
       {error && <p>{error}</p>}
     </form>
   );

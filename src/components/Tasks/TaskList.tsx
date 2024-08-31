@@ -11,6 +11,7 @@ import useReadTasks from '@/hooks/useReadTasks';
 import DeleteTaskCheckbox from './DeleteTasksCheckbox';
 import Button from '../Button/Button';
 import AddTask from './AddTask';
+import styles from './TaskList.module.css';
 
 const TaskList: React.FC = () => {
   const { fetchTasks, tasks, error } = useReadTasks();
@@ -27,8 +28,8 @@ const TaskList: React.FC = () => {
   };
 
   const handleDeleteSuccess = () => {
-    setSelectedTasks([]);  
-    fetchTasks();         
+    setSelectedTasks([]);
+    fetchTasks();
   };
 
   const handleClick = (id: number) => {
@@ -36,8 +37,8 @@ const TaskList: React.FC = () => {
   };
 
   const handleEditSuccess = (id: number) => {
-    setShowInput(null);  
-    fetchTasks();         
+    setShowInput(null);
+    fetchTasks();
   };
 
   useEffect(() => {
@@ -45,24 +46,27 @@ const TaskList: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <AddTask onSuccess={fetchTasks} />
-      {selectedTasks.length > 0 ? <DeleteTaskCheckbox onSuccess={handleDeleteSuccess} value={selectedTasks}/> : null}
-      <ul>
+    <div className={styles.container}>
+      <div className={styles.addContainer}>
+        <AddTask onSuccess={fetchTasks} />
+        {selectedTasks.length > 0 ? <DeleteTaskCheckbox onSuccess={handleDeleteSuccess} value={selectedTasks} /> : null}
+      </div>
+      <ul className={styles.list}>
         {tasks.map(task => (
-          <li key={task.id}>
-            <Input type='checkbox' onChange={() => handleCheckbox(task.id)}
-              checked={selectedTasks.includes(task.id)} />
-            <p>{task.name}</p>
-            {task.status !== 'done' ? (
-      showInput === task.id ? (
-        <EditTask onSuccess={() => handleEditSuccess(task.id)} value={task.name} id={task.id} />
-      ) : (
-        <Button onClick={() => handleClick(task.id)} type="submit" text="Editar" />
-      )
-    ) : null}            <p><strong>Status:</strong> {task.status}</p>
-            {task.status !== 'done' ? <DoneTask onSuccess={fetchTasks} id={task.id} /> : <UndoneTask onSuccess={fetchTasks} id={task.id}/>}
-            <DeleteTask onSuccess={fetchTasks} value={task.id} />
+          <li className={styles.item} key={task.id}>
+            <div className={styles.taskName}>
+              <Input type='checkbox' onChange={() => handleCheckbox(task.id)}
+                checked={selectedTasks.includes(task.id)} />
+              {showInput === task.id ?
+                <EditTask onSuccess={() => handleEditSuccess(task.id)} value={task.name} id={task.id} /> :
+                <p className={task.status === 'pending' ? styles.pending : styles.done}>{task.name}</p>}
+            </div>
+            {/* <p className={task.status === 'pending' ? styles.pending : styles.done}>{task.status}</p> */}
+            <div className={styles.btnContainer}>
+              {task.status !== 'done' ? <DoneTask onSuccess={fetchTasks} id={task.id} /> : <UndoneTask onSuccess={fetchTasks} id={task.id} />}
+              {(task.status !== 'done' && showInput != task.id) ? <Button onClick={() => handleClick(task.id)} type="submit" text="Editar" className='editarBtn' title='editar' /> : null}
+              <DeleteTask onSuccess={fetchTasks} value={task.id} />
+            </div>
           </li>
         ))}
       </ul>

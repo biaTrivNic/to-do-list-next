@@ -8,20 +8,23 @@ const DeleteTaskCheckbox: React.FC<{ value: number[], onSuccess: () => void }> =
 
   const { deleteTask, error } = useDeleteTasks();
 
-  
-
   const handleDelete = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    value.forEach(id => {
-      deleteTask(id, onSuccess)
-    });
+    const isConfirmed = confirm('Tem certeza de que deseja deletar as tarefas selecionadas?');
 
+    if (!isConfirmed) {
+      return;
+    }
+
+    value.forEach(id => {
+      deleteTask(id, onSuccess);
+    });
   };
 
   return (
     <form onSubmit={handleDelete}>
-      <Button type="submit" text="Deletar" />
+      <Button type="submit" className='delCheck' title='deletar' />
       {error && <p style={{ color: 'red' }}>Erro: {error}</p>} 
     </form>
   );

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
 import useInsertTask from '@/hooks/useInsertTask';
+import styles from "./AddTask.module.css"
 
 const AddTask: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
 
@@ -21,17 +22,18 @@ const AddTask: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.container} onSubmit={handleSubmit}>
       <Input
         type="text"
         placeholder="Digite uma tarefa"
         value={newTask}
         onChange={handleChange}
         maxLength={50}
+        className='text'
       />
-      {errorMinLength && <p style={{ color: 'red' }}>Erro: {errorMinLength}</p>} 
 
-      <Button type="submit" text="Adicionar" />
+      <Button type="submit" className='add' text="Adicionar" title='adicionar'/>
+      {errorMinLength && <p style={{ color: 'red' }}>Erro: {errorMinLength}</p>} 
       {error && <p style={{ color: 'red' }}>Erro: {error}</p>} 
     </form>
   );
