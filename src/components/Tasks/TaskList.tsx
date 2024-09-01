@@ -18,6 +18,7 @@ const TaskList: React.FC = () => {
 
   const [selectedTasks, setSelectedTasks] = useState<number[]>([]);
   const [showInput, setShowInput] = useState<number | null>(null);
+  const [allSelected, setAllSelected] = useState<boolean>(false);
 
   const handleCheckbox = (id: number) => {
     setSelectedTasks(prevTasks =>
@@ -29,6 +30,7 @@ const TaskList: React.FC = () => {
 
   const handleDeleteSuccess = () => {
     setSelectedTasks([]);
+    setAllSelected(false)
     fetchTasks();
   };
 
@@ -41,6 +43,16 @@ const TaskList: React.FC = () => {
     fetchTasks();
   };
 
+  const selectAll = () => {
+    if (allSelected) {
+      setSelectedTasks([]); 
+    } else {
+      const allTaskIds = tasks.map(task => task.id);
+      setSelectedTasks(allTaskIds); 
+    }
+    setAllSelected(!allSelected);
+  }
+
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -51,6 +63,7 @@ const TaskList: React.FC = () => {
         <AddTask onSuccess={fetchTasks} />
         {selectedTasks.length > 0 ? <DeleteTaskCheckbox onSuccess={handleDeleteSuccess} value={selectedTasks} /> : null}
       </div>
+      {selectedTasks.length > 0 ? <Button onClick={selectAll} className={allSelected ? "selectAllBtn selected" : "selectAllBtn"} text='selecionar todas'/> : null}
       <ul className={styles.list}>
         {tasks.map(task => (
           <li className={styles.item} key={task.id}>
@@ -61,7 +74,6 @@ const TaskList: React.FC = () => {
                 <EditTask onSuccess={() => handleEditSuccess(task.id)} value={task.name} id={task.id} /> :
                 <p className={task.status === 'pending' ? styles.pending : styles.done}>{task.name}</p>}
             </div>
-            {/* <p className={task.status === 'pending' ? styles.pending : styles.done}>{task.status}</p> */}
             <div className={styles.btnContainer}>
               {task.status !== 'done' ? <DoneTask onSuccess={fetchTasks} id={task.id} /> : <UndoneTask onSuccess={fetchTasks} id={task.id} />}
               {(task.status !== 'done' && showInput != task.id) ? <Button onClick={() => handleClick(task.id)} type="submit" text="Editar" className='editarBtn' title='editar' /> : null}

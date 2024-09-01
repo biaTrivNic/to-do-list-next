@@ -93,3 +93,12 @@
     padding: 3px 10px;
     font-size: 18px;
 }
+
+.selectAllBtn {
+    font-size: 15px;
+}
+
+.selected {
+    box-shadow: inset 8px 8px 8px #a0a2a3,
+        inset -8px -8px 8px #ffffff;
+}

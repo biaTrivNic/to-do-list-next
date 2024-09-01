@@ -38,7 +38,7 @@ const EditTask: React.FC<{ value: string, id: number, onSuccess: () => void }> =
       />
       <Button type="submit" text=">" className='editBtn' title='enviar'/>
       {error && <p>{error}</p>}
-      {errorMinLength && <p>{errorMinLength}</p>}
+      {errorMinLength && <p className="error" style={{ color: 'red' }}>{errorMinLength}</p>} 
     </form>
   );
 };

@@ -30,7 +30,7 @@ const useUpdateTask = () => {
                 console.error('Erro:', error);
             }    
         } else {
-            setErrorMinLength('Deve conter mais que 5 caracteres');
+            setErrorMinLength('Sua tarefa deve conter mais que 5 caracteres');
         }
       };
 

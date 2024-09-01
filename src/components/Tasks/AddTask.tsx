@@ -33,7 +33,7 @@ const AddTask: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
       />
 
       <Button type="submit" className='add' text="Adicionar" title='adicionar'/>
-      {errorMinLength && <p style={{ color: 'red' }}>Erro: {errorMinLength}</p>} 
+      {errorMinLength && <p style={{ color: 'red' }}>{errorMinLength}</p>} 
       {error && <p style={{ color: 'red' }}>Erro: {error}</p>} 
     </form>
   );

@@ -11,7 +11,7 @@ const DeleteTask: React.FC<{ value: number, onSuccess: () => void }> = ({ value,
   const handleDelete = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const isConfirmed = confirm('Tem certeza de que deseja esta tarefa?');
+    const isConfirmed = confirm('Tem certeza de que deseja deletar esta tarefa?');
 
     if (!isConfirmed) {
       return;
