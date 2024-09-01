@@ -64,6 +64,7 @@ const TaskList: React.FC = () => {
         {selectedTasks.length > 0 ? <DeleteTaskCheckbox onSuccess={handleDeleteSuccess} value={selectedTasks} /> : null}
       </div>
       {selectedTasks.length > 0 ? <Button onClick={selectAll} className={allSelected ? "selectAllBtn selected" : "selectAllBtn"} text='selecionar todas'/> : null}
+      {tasks.length < 1 ? <p>Você não possui tarefas</p> : null}
       <ul className={styles.list}>
         {tasks.map(task => (
           <li className={styles.item} key={task.id}>
