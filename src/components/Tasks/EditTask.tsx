@@ -34,6 +34,7 @@ const EditTask: React.FC<{ value: string, id: number, onSuccess: () => void }> =
         type="text" 
         value={editedTask} 
         className="edit" 
+        maxLength={30}
         onChange={handleChange} 
       />
       <Button type="submit" text=">" className='editBtn' title='enviar'/>

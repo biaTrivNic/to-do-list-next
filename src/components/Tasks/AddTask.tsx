@@ -28,7 +28,7 @@ const AddTask: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
         placeholder="Digite uma tarefa"
         value={newTask}
         onChange={handleChange}
-        maxLength={50}
+        maxLength={30}
         className='text'
       />
 
