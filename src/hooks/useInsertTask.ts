@@ -10,10 +10,10 @@ const useInsertTask = () => {
         setError(null);
         setErrorMinLength(null);
 
-        if(newTask.length > 5) {
-            const data = { name: newTask };
+        if (newTask.length > 5) {
+            const data = { title: newTask }; 
 
-            fetch('/api/create', {
+            fetch('/api/tasks', { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,18 +23,15 @@ const useInsertTask = () => {
                 .then(response => response.json())
                 .then(result => {
                     console.log('Sucesso:', result);
-                    onSuccess()
+                    onSuccess(); 
                 })
                 .catch(error => {
-                    setError('não foi possível salvar dados')
+                    setError('Não foi possível salvar os dados');
                     console.error('Erro:', error);
-                });    
-
+                });
         } else {
-            setErrorMinLength('Sua tarefa deve conter mais que 5 caracteres')
+            setErrorMinLength('Sua tarefa deve conter mais de 5 caracteres');
         }
-
-
     };
 
     return { insertTask, error, errorMinLength };

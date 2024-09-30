@@ -8,7 +8,7 @@ const useDeleteTasks = () => {
     const deleteTask = async (id: number, onSuccess: () => void) => {
     
         try {
-          const response = await fetch('/api/delete', {
+          const response = await fetch(`/api/tasks/${id}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',

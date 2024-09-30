@@ -9,7 +9,7 @@ const useReadTasks = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch('/api/read');
+      const response = await fetch('/api/tasks');
       if (!response.ok) {
         if (response.status === 404) {
           setTasks([]);

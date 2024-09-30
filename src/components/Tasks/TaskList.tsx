@@ -72,8 +72,8 @@ const TaskList: React.FC = () => {
               <Input type='checkbox' onChange={() => handleCheckbox(task.id)}
                 checked={selectedTasks.includes(task.id)} />
               {showInput === task.id ?
-                <EditTask onSuccess={() => handleEditSuccess(task.id)} value={task.name} id={task.id} /> :
-                <p className={task.status === 'pending' ? styles.pending : styles.done}>{task.name}</p>}
+                <EditTask onSuccess={() => handleEditSuccess(task.id)} value={task.title} id={task.id} /> :
+                <p className={task.status === 'pending' ? styles.pending : styles.done}>{task.title}</p>}
             </div>
             <div className={styles.btnContainer}>
               {task.status !== 'done' ? <DoneTask onSuccess={fetchTasks} id={task.id} /> : <UndoneTask onSuccess={fetchTasks} id={task.id} />}
